@@ -9,7 +9,7 @@ def createKey():
         e_key.append(str((input("letter: "))).lower())
     return e_key
 
-def decryptVigenere(cText, key):
+def decryptVigenere(cText, key, buffer):
     alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     cText = cText.lower()
     cText = cText.replace(" ", "")
@@ -18,7 +18,7 @@ def decryptVigenere(cText, key):
     for i in range(len(cText)):
         cTextIndex = alphabet.index(cText[i])
         keyIndex = alphabet.index(key[i % len(key)])
-        pTextIndex = (cTextIndex - keyIndex) % 26
+        pTextIndex = ((cTextIndex - keyIndex) % 26 ) - buffer
         pText = pText + alphabet[pTextIndex]
     return pText
 
@@ -52,7 +52,8 @@ def encryptVigenere(pText, key):
 def decrypt():
     key = createKey()
     ciphertext = input("input ciphertext: ")
-    print(decryptVigenere(ciphertext, key))
+    buffer = int(input("Is A=0 or A=1?"))
+    print(decryptVigenere(ciphertext, key, buffer))
 
 def key():
     ciphertext = input("input ciphertext: ")

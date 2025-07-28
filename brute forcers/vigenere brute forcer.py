@@ -115,12 +115,11 @@ def dictionaryAttack(cText, maxKeyLength):
         
 def main():
     ciphertext = input("enter ciphertext: ")    
-    print(dictionaryAttack(ciphertext, 10))
+    print(dictionaryAttack(ciphertext, 8))
 
 
 def indexCheck():
     text = input("enter text: ")
     text = text.replace(" ", "")
+    text = text.lower()
     print(indexCoincidence(text))
-
-main()
