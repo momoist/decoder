@@ -9,9 +9,8 @@ def columnSplitter(cText, num):
     for i in range(len(cText)):
         columns[i%num].append(cText[i])
     return columns
-def columnSplitterRun(num): #literally no idea what this does
-    text = input("Enter text: ")
-    text.replace(" ", "")
+
+def columnSplitterRun(text, num): #makes columnSplitter actually usable 
     columns = columnSplitter(text, num)
     columnsList = []
     for i in range(num):
@@ -81,6 +80,6 @@ def groupMaker(cText, num): #or space adder depending on how u look at it
 
 def run(): #edit as needed
     text = input("Enter text: ")
-    print(columnSplitter(text, 6))
+    print(columnSplitterRun(text, 5))
 
 run()
