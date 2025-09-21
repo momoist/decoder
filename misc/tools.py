@@ -48,20 +48,28 @@ def textSplitter(text): #halves it every other
 #we need a trigram counter that counts trigrams but also finds the gap between each one
 def trigramCounter(text):
     text = text.replace(" ", "")
-    trigrams = [text[i:i+3] for i in range(len(text)-2)] #stole this off overflow but it's GENIUS
+    trigrams = [text[i:i+3] for i in range(len(text)-2)] #stole this off overflow but it's GENIUS - it splits the text into triplets
     trigramsCount = {}
     for i in range(len(trigrams)):
-        if trigrams[i] not in trigramsCount:
+        if trigrams[i] not in trigramsCount: #????
             trigramsCount.update({trigrams[i]:1})
         else:
             trigramsCount[trigrams[i]] += 1
-    #successfully counts the trigrams
-    topTrigrams = {}
-    for key, value in trigramsCount.items(): #thanks chat gpt
-        if value >= 3:
-            topTrigrams[key] = value
-    return topTrigrams
-#work in progress, does not work yet bc it doesn't return top trigrams
+    #below picks out the trigrams that appear more than 3 times
+    topTrigrams = []
+    for key, value in trigramsCount.items():
+        if value >= 3: 
+            topTrigrams.append([key, value])
+    #below orders the trigrams
+    trigramsOrdered = []
+    for trigram in topTrigrams:
+        if len(trigramsOrdered) == 0: #if list is empty just add first item
+            trigramsOrdered.append(trigrams)
+        else:
+            for i in range(len(trigramsOrdered)):
+                if trigramsOrdered[i][0] <= trigram[0]:
+                    trigramsOrdered.insert(i, trigram)
+    return trigramsOrdered
 
 #enter trigrams and text, then it will count gaps between each trigrams
 def spaceCounter(text, trigrams):
@@ -79,7 +87,7 @@ def groupMaker(cText, num): #or space adder depending on how u look at it
     return groups
 
 def run(): #edit as needed
-    text = input("Enter text: ")
-    print(columnSplitterRun(text, 5))
+    text = "abcabcabcabcabc"
+    print(trigramCounter(text))
 
 run()
